@@ -1,0 +1,36 @@
+<!-- templates/about.html -->
+{% extends "base.html" %}
+
+{% block title %}Sobre - Flask Demo{% endblock %}
+
+{% block content %}
+<h1>Sobre esta aplicação</h1>
+<p>Esta é uma demonstração de:</p>
+<ul>
+    <li><strong>Flask:</strong> Framework web em Python</li>
+    <li><strong>GitHub Actions:</strong> CI/CD automático</li>
+    <li><strong>Codecov:</strong> Relatórios de cobertura de testes</li>
+    <li><strong>Render:</strong> Deploy automático</li>
+</ul>
+
+<h2>Funcionalidades</h2>
+<p>A aplicação inclui uma calculadora simples com operações básicas, testes automatizados e deploy contínuo.</p>
+
+<h2>Status da aplicação</h2>
+<button onclick="checkHealth()">Verificar Health</button>
+<div id="health-result"></div>
+
+<script>
+async function checkHealth() {
+    try {
+        const response = await fetch('/health');
+        const data = await response.json();
+        document.getElementById('health-result').innerHTML = 
+            `<div class="result">Status: ${data.status} | App: ${data.app}</div>`;
+    } catch (error) {
+        document.getElementById('health-result').innerHTML = 
+            '<div class="result error">Erro ao verificar status</div>';
+    }
+}
+</script>
+{% endblock %}
